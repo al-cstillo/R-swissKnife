@@ -8,7 +8,7 @@ library(writexl)
 library(xlsx)
 library(qdap)
 
------------------------------------------------------------------------
+#-----------------------------------------------------------------------
 getSQL = function(filepath){
   con = file(filepath, "r")
   sql.string <- ""
@@ -27,59 +27,17 @@ getSQL = function(filepath){
   return(paste0("set nocount on\n",sql.string))
 }
 
-----------------------------------------------------------------
+#----------------------------------------------------------------
   
-#setwd("D:/Main/queries/ale/Auto hechos")
-#path="CART_20xCOB.sql" 
-#
-#blok_7 ="
-#set nocount on
-#Use SISBR;
-#Exec sisbr.dbo.USP_BI_FactReservaRiesgo  @EndOfDay ='YYYY-MM-DD';
-#"
-#
-#blok_8 ="
-#set nocount on
-#Use SISBR;
-#Exec dbo.USP_BI_FactAntiguedadSaldo @topdate='YYYY-MM-DD';
-#"
-#
-#blok_11="
-#set nocount on
-#Use SISBR;
-#Exec dbo.USP_BI_FACT_SINIESTROPENDIENTE @EndOfDay ='YYYY-MM-DD'
-#"
-#
-#blok_12="
-#set nocount on
-#Use SISBR;
-#exec dbo.USP_BI_FACT_CARTERA  @EndOfDay='YYYY-MM-DD'
-#"
-#
-#
-#query="
-#set nocount on
-#Use SISBR;
-#exec [SP_FireStatistic] @dWDate='2020-09-30 23:59:59.999' ,@WithClaim=1,@cSlob = '(201,202,203,206)',@dEffectiveDate ='2020-09-30' ,@nCov=321
-#"
-#
-#base = dbFetch(dbSendQuery(con,query))
-#pattern = c("YYYY-MM-DD")
-#
-#
-#
-#query=getSQL(path)
+
+path="your/query/path.sql" 
+pattern = c("YYYY-MM-DD")
+query=getSQL(path)
 
 
 
-#EOMs= seq(as.Date("2019-09-30"),as.Date("2001-01-01"),by="-1 days")
-#EOMs= (seq(as.Date("2020-12-01"),as.Date("2019-01-01"),by="-1 months")-1) 
-#EOMs= seq(as.Date("2014-10-31"),as.Date("2019-11-30"),by="1 years")
+EOMs= seq(as.Date("2019-09-30"),as.Date("2001-01-01"),by="-1 days")
 
-#dataa=dbFetch(dbSendQuery(con,query))
-
-#EOMs=c(as.Date("2020-12-05") ,EOMs) 
-#EOMs= c(seq(as.Date("2020-12-01"),as.Date("2017-02-01"),by="-1 months")-1) 
 
 fun =function(repl,queryRoot,patt,trye,maxTry,sleep.time) {
   if(missing(trye))      {trye      =1 } 
@@ -139,28 +97,14 @@ fun =function(repl,queryRoot,patt,trye,maxTry,sleep.time) {
   return (tmp %>% mutate(BD=paste(repl,collapse = " : ")))
 }
 
-#Paid_Convert= function (x) {c(as.character(as.Date(paste(year(x)-1,month(x)+1,1,sep="-"))),as.character(x),slob)}
-
-
-#output_path="D:/Repositorio_Generales/Asistencia_Domiciliaria"
+Paid_Convert= function (x) {c(as.character(as.Date(paste(year(x)-1,month(x)+1,1,sep="-"))),as.character(x),slob)}
 
 csv_Write = function(x) {x %>%fwrite(paste(output_path,paste0(.$Rpt[1],".csv"),sep="/")) }
 
 
 
-#stt=Sys.time()
-#log =paste0("Log started at time : ",stt)
-##EEOMS = lapply(EOMs,Paid_Convert)
-##tsta2k=lapply(EEOMS,fun,queryRoot=query,patt=pattern)
-#tsta2k=lapply(EOMs,fun,queryRoot=blok_8,patt=pattern)
-#
-#
-#
-#tak = fun(repl=c("2019-01-31"),queryRoot = query,patt = pattern)
-#
-#lapply(tsta2k,csv_Write)
-#
-#Siniestros = bind_rows(tsta2)
-#
-#
-#tst=dbFetch(dbSendQuery(con,query))
+stt=Sys.time()
+log =paste0("Log started at time : ",stt)
+EEOMS = lapply(EOMs,Paid_Convert)
+result=lapply(EEOMS,fun,queryRoot=query,patt=pattern)
+
