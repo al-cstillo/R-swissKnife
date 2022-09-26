@@ -49,9 +49,9 @@ fun =function(repl,queryRoot,patt,trye,maxTry,sleep.time) {
     {
       #Crea una conexion cada vez que se ejecuta una fecha en la funcion
       con = dbConnect(odbc(), Driver = "SQL Server", 
-                      Server = "172.22.43.20",
-                      UID = "SISUSR", 
-                      PWD = "123456@#",
+                      Server = "SERVER",
+                      UID = "USER", 
+                      PWD = "PASSWORD",
                       encoding="Latin1")
       #imprime y guarda en el log que la conexion fue creada y a la hora x
       Conn_Flag = print(paste0("Connection created for day ",paste(repl,collapse = " : ")," at time ",Sys.time()))
