@@ -9,3 +9,7 @@ model= lm(speed ~ dist,data = cars)
 
 summary(model)
 
+line = predict(model)
+
+lines(line,cars$dist)
+
